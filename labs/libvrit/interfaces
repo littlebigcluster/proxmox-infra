@@ -1,0 +1,15 @@
+auto lo
+iface lo inet loopback
+
+iface ens3 inet manual
+
+auto vmbr0
+iface vmbr0 inet dhcp
+#	address 192.168.125.133
+	netmask 255.255.255.0
+	gateway 192.168.125.1
+	bridge_ports ens3
+	bridge_stp off
+	bridge_fd 0
+
+iface ens4 inet manual

@@ -1,0 +1,17 @@
+<network>
+  <name>public_network</name>
+  <uuid>a55c2ff4-d9ea-4fb2-b34e-f4f1640cd0f1</uuid>
+  <forward mode='nat'>
+    <nat>
+      <port start='1024' end='65535'/>
+    </nat>
+  </forward>
+  <bridge name='virbr1' stp='on' delay='0'/>
+  <!--<mac address='65:E5:DB:3B:C7:05'/>-->
+  <ip address='192.168.125.1' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='192.168.125.128' end='192.168.125.254'/>
+    </dhcp>
+  </ip>
+</network>
+

@@ -1,0 +1,17 @@
+<network>
+  <name>failover_network</name>
+  <uuid>98e5f66c-b2b0-43f5-bdaf-1c49fc5039de</uuid>
+  <forward mode='nat'>
+    <nat>
+      <port start='1024' end='65535'/>
+    </nat>
+  </forward>
+  <bridge name='virbr1' stp='on' delay='0'/>
+  <!--<mac address='65:E5:DB:3B:C7:05'/>-->
+  <ip address='192.168.144.1' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='192.168.144.128' end='192.168.144.254'/>
+    </dhcp>
+  </ip>
+</network>
+
