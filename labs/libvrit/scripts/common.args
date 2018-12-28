@@ -3,3 +3,5 @@ PUB_NET=public_network
 PRIV_NET=private_network
 NETWORKS="$PUB_NET $PRIV_NET"
 TMPL_DOMAIN_NAME=core-4-m-proxmox-template
+TEMPLATE_LOGIN=root
+TEMPLATE_PWD=abc123

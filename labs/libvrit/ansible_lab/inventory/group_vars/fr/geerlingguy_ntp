@@ -1,0 +1,6 @@
+ntp_enable: true
+ntp_manage_config: true
+ntp_timezone: Europe/Paris
+# NTP server area configuration (leave empty for 'Worldwide').
+# See: http://support.ntp.org/bin/view/Servers/NTPPoolServers
+ntp_area: 'Europe'

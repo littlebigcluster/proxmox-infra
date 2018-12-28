@@ -38,12 +38,14 @@ To install that we provide some tools that are covered in detail in the next
 section, we aims to make them idempotent:
 
 - ``scripts/00_download_proxmox_image.sh`` is a script to download a proxmox iso
-  iamge if not present locally
+  image if not present locally
 - ``scripts/01_create_virtual_disks.sh`` create qcow2 virtual disk image that
   will be used by the core-4-m proxmox libvirt template.
 - ``scripts/02_prepare_virt_install_domain.sh`` create a template machine and
-  networks ``core-4-m-proxmox-template`` if not already created.
-- ``scripts/03_prepare_template.sh`` prepare the template before cloning
+  networks ``core-4-m-proxmox-template`` if not already created and install
+  proxmox inside
+- ``scripts/03_prepare_template.sh`` prepare the template server
+  ``core-4-m-proxmox-template`` (like using dhcp instead static ip)
 - ``scripts/04_spwan_proxmox_servers.sh`` clone the template proxmox server
   ``core-4-m-proxmox-template`` to create 5 proxmox servers if not already
   present with following names: ``proxmox-infra-lab-[1-5]``
@@ -119,13 +121,13 @@ provided scripts to get 5 proxmox servers
     - [ ] click the install button
     - [ ] remove the cdrom (you may need to reboot to be able to deconnect the device)
     - [ ] reboot the freshly template vm
-    - [ ] make sur you can connect over ssh and on the web uri (localhost:8443:
-        - https://192.168.125.182:8006 (pam login root/abc123)
-        - ssh root@192.168.125.182 (password abc123)
-    - [ ] stop it
+    - [ ] make sur you can connect over ssh and on the web uri:
+        - https://192.168.125.133:8006 (pam login root/abc123)
+        - ssh root@192.168.125.133 (password abc123)
+  - [ ] Setup template machine using ``scripts/03_prepare_template.sh``
 
 - [ ] Spawn 5 proxmox servers and make them running (
-      ``scripts/03_.sh``
+      ``scripts/04_spwan_proxmox_servers.sh``
 - [ ] Ansible config:
    - [ ] make sure to have ansible installed (on your laptop or a venv)
    - [ ] link the labs/libvirt/ansible/inventory directory to the top of this
@@ -169,8 +171,14 @@ to clone and spawn other proxmox machine to create the cluster.
 
 ### scripts/03_prepare_template.sh
 
+This script start the template to make it ready to clone.
+
 ### scripts/04_spwan_proxmox_servers.sh
 
+This script is used to clone the template, by default it will create 5 VMs.
+using ``-f`` that will remove all VMs and re-create new ones from the template.
+using ``-r`` (with ``-f``) it will remove VMs and do not create new ones wich
+is nice to cleanup thems
 
 ## TODO
 
@@ -178,5 +186,5 @@ to clone and spawn other proxmox machine to create the cluster.
 - [x] A script to prepare disk image for proxmox template
 - [x] Prepare virt domain and create the template machine
 - [x] duplicate template to spwan 5 proxmox nodes
-- [ ] init config on template vm to avoid static ip
+- [x] init config on template vm to avoid static ip
 - [ ] ansible inventory script

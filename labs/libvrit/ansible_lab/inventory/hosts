@@ -1,0 +1,32 @@
+all:
+  children:
+    labs_hosted:
+      hosts:
+        mylab:
+    proxmox:
+      children:
+        pve01:
+          hosts:
+            # values generated running
+            # labs/libvirt/scripts/04_spwan_proxmox_servers.sh
+            proxmox-infra-lab-1:
+              ansible_host: 192.168.125.129
+            proxmox-infra-lab-2:
+              ansible_host: 192.168.125.168
+            proxmox-infra-lab-3:
+              ansible_host: 192.168.125.174
+            proxmox-infra-lab-4:
+              ansible_host: 192.168.125.189
+            proxmox-infra-lab-5:
+              ansible_host: 192.168.125.153
+
+
+    region:
+      children:
+        fr:
+          hosts:
+            proxmox-infra-lab-1:
+            proxmox-infra-lab-2:
+            proxmox-infra-lab-3:
+            proxmox-infra-lab-4:
+            proxmox-infra-lab-5:

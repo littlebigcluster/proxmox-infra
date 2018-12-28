@@ -103,4 +103,23 @@ if $CREATE; then
 fi
 
 echo "VM IPs:"
-virsh -c $HYPERVISOR net-dhcp-leases $PUB_NET | grep  -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
+virsh -c $HYPERVISOR net-dhcp-leases $PUB_NET
+
+set +e
+for vmid in $(seq $VMS)
+do
+    VM="$VM_NAME$vmid"
+    while [[ `virsh domifaddr $VM | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | wc -l` -eq 0 ]]
+    do
+        echo "Waiting 5s public net interface ready on $VM (infinit loop in case never ready)..."
+        sleep 5
+    done
+done
+
+for vmid in $(seq $VMS)
+do
+    VM="$VM_NAME$vmid"
+    DOM_IP=`virsh domifaddr $VM | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'`
+    echo "$VM:"
+    echo "  ansible_host: $DOM_IP"
+done

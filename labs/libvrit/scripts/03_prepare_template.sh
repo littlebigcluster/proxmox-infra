@@ -5,8 +5,6 @@ thisDir=$(dirname "$0")
 . "$thisDir/lib.sh"
 
 TEMPLATE_IP=192.168.125.133
-TEMPLATE_LOGIN=root
-TEMPLATE_PWD=abc123
 NET_IFACES_FILE="$CWD/interfaces"
 
 set -e

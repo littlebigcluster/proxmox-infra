@@ -1,0 +1,23 @@
+- hosts: proxmox
+  name: Setup proxmox lab repos and upgrade
+  tasks:
+    - import_role:
+        name: lab.hostname
+      vars:
+        - msg: "We reboot because..."
+    - name: pve-enterprise absent
+      file:
+        path: /etc/apt/sources.list.d/pve-enterprise.list
+        state: absent
+    - name: pve-no-subscription present
+      copy:
+        src: proxmox/pve-no-subscription.list
+        dest: /etc/apt/sources.list.d/pve-no-subscription.list
+        owner: root
+        group: root
+        mode: 0644
+    - name: Update repositories cache (required for geerlingguy.ntp role) and upgrade
+      apt:
+        update_cache: true
+        upgrade: safe
+        cache_valid_time: 14400  # 4h
