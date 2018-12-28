@@ -1,0 +1,4 @@
+ansible
+
+# jmespath required by lae.proxmox role to easly query json data
+jmespath

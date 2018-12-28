@@ -1,0 +1,8 @@
+
+- hosts: proxmox
+  roles:
+    - geerlingguy.ntp
+
+- hosts: pve01
+  roles:
+    - lae.proxmox

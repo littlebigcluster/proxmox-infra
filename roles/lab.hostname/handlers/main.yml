@@ -1,0 +1,10 @@
+---
+# handlers file for roles/lab.hostname
+- name: restart machine
+  reboot:
+    connect_timeout: "{{ connect_timeout }}"
+    msg: "{{ msg }}"
+    post_reboot_delay: "{{ post_reboot_delay }}"
+    pre_reboot_delay: "{{ pre_reboot_delay }}"
+    reboot_timeout: "{{ reboot_timeout }}"
+    test_command: "{{ test_command }}"

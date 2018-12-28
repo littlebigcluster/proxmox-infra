@@ -1,0 +1,7 @@
+---
+# tasks file for roles/lab.hostname
+- name: set hostname
+  hostname:
+    name: "{{ hostname }}"
+  notify:
+    - restart machine
